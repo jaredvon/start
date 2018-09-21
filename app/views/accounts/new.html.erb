@@ -1,0 +1,34 @@
+<%= form_for @account,html:{ role:"form",class:"form-horizontal"} do |form|%>
+    <% if @account.errors.any? %>
+        <% @account.errors.full_messages.each do |error|%>
+            <div><%= error %></div>
+        <% end %>
+    <% end %>
+    <%= form.fields_for :owner_attributes do |o|%>
+        <div class="form-group">
+            <%= o.label :name%>
+            <%= o.text_field :name,placeholder:"Enter your name",class:"form-control" %>
+        </div>
+        <div class="form-group">
+            <%= o.label :email%>
+            <%= o.email_field :email,placeholder:"Enter your name",class:"form-control" %>
+        </div>
+        <div class="form-group">
+            <%= o.label :password%>
+            <%= o.password_field :password,placeholder:"Enter your name",class:"form-control" %>
+        </div>
+        <div class="form-group">
+            <%= o.label :password_confirmation%>
+            <%= o.password_field :password_confirmation,placeholder:"Enter your name",class:"form-control" %>
+        </div>
+    <% end %>
+    <div class="form-group">
+        <%= form.label :subdomain%>
+        <%= form.text_field :subdomain,class:"form-horizontal"%>
+    </div>
+    
+    <div class="form-group">
+        <%= form.submit "Submit"%>
+    </div>
+<% end %>
+
