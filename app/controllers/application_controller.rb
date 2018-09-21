@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 	def load_schema
 		Apartment::Tenant.switch!('public')
 		return unless request.subdomain.present?
-
 		Apartment::Tenant.switch!(request.subdomain)
 	end
 
@@ -15,6 +14,7 @@ class ApplicationController < ActionController::Base
 
 	def set_email_host
 		subdomain = current_account ? "{current_account.subdomain}." : ""
-		ActionMailer::Base.default_url_options[:host] = "#{}"
+		ActionMailer::Base.default_url_options[:host] = "#{subdomain}." + request.domain
 	end
+
 end
