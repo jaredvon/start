@@ -13,8 +13,16 @@ class ApplicationController < ActionController::Base
 	end
 
 	def set_email_host
-		subdomain = current_account ? "{current_account.subdomain}." : ""
-		ActionMailer::Base.default_url_options[:host] = "#{subdomain}." + request.domain
+		subdomain = current_account ? "#{current_account.subdomain}." : ""
+		ActionMailer::Base.default_url_options[:host] = "#{subdomain}lvh.me:3000"
 	end
 
+	def url(subdomain)
+		case Rails.env
+		when "development"
+			return "#{subdomain}.lvh.me:3000"
+		when "production"
+			return "#{subdomain}.start007.herokuapp.com"
+		end
+	end
 end
